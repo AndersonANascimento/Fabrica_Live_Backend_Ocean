@@ -23,6 +23,10 @@ app.get('/mensagens', (req, res) => {
 app.get('/mensagens/:id', (req, res) => {
     const id = req.params.id - 1;
     const mensagem = mensagens[id];
+    if (!mensagem) {
+        res.send("Mensagem não encontrada!");
+        return;
+    }
     res.send(mensagem);
 });
 app.post('/mensagens', (req, res) => {
