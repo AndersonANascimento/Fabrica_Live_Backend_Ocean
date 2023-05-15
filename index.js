@@ -18,7 +18,7 @@ const mensagens = [
 ];
 
 app.get('/mensagens', (req, res) => {
-    res.send(mensagens);
+    res.send(mensagens.filter(Boolean));
 });
 app.get('/mensagens/:id', (req, res) => {
     const id = req.params.id - 1;
@@ -36,8 +36,10 @@ app.put('/mensagens/:id', (req, res) => {
     mensagens[id] = mensagem
     res.send(`Mensagem atualizada com sucesso: ${mensagem}`);
 });
-app.delete('/mensagens', (req, res) => {
-    res.send('Hello!');
+app.delete('/mensagens/:id', (req, res) => {
+    const id = req.params.id - 1;
+    delete mensagens[id];
+    res.send('Mensagem removida com sucesso!');
 });
 
 app.listen(port, () => {
